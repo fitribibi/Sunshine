@@ -10,6 +10,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -56,10 +62,33 @@ public class MainActivity extends ActionBarActivity {
         public PlaceholderFragment() {
         }
 
+        ArrayAdapter<String>mForecastAdapter;
+
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+            String[] data = {
+                    "Sunday - Sunny - 31/17",
+                    "Monday - Rainy - 21/7",
+                    "Tuesday - Cloudy - 11/17",
+                    "wednesday - Foggy - 14/14",
+                    "Thrusday - Sunny - 31/7",
+                    "Friday - Sunny - 12/5",
+                    "Saturday - Foggy - 29/7"
+            };
+
+            List<String> weekForecast = new ArrayList<String>(Arrays.asList(data));
+
+            mForecastAdapter = new ArrayAdapter<String>(
+                    getActivity(),
+                    R.layout.list_item_forecast,
+                    R.id.list_item_forecast_textview,
+                    weekForecast
+            );
+
+            ListView listView = (ListView) rootView.findViewById(R.id.list_item_forecast_textview);
+            listView.setAdapter(mForecastAdapter);
             return rootView;
         }
     }
